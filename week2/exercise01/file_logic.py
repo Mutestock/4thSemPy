@@ -32,13 +32,12 @@ def print_file_content(*files):
 def write_list_to_file(output_file, lst):
     with open(output_file, "w") as fileWrite:
         for element in lst:
-            fileWrite.write(str(element))
+            fileWrite.write(str(element)
 
 # write_list_to_file(directory+"_wltf_" +
 #                  qol.file_name_handling(urlList[0]), tupleList)
 
 # B. a.
-
 
 def write_args_to_file(output_file, *args):
     with open(output_file, "w") as fileWrite:
@@ -57,7 +56,7 @@ def read_csv(input_file):
         return [line for line in fileRead]
 
 
-#csvLineList = read_csv(urlList[0])
+# csvLineList = read_csv(urlList[0])
 # print(csvLineList)
 
 
