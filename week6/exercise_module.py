@@ -28,6 +28,7 @@ class ExerciseModule():
     def __name_handle(self, s):
         s = s.replace(s.split('.')[-1], '')
         s = s.replace('.', '')
+
         return s.split('/')[-1]
 
     def __dl_append(self, url):
