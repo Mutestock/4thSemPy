@@ -105,6 +105,10 @@ class ExerciseModule():
             return total/line_count
 
     def hardest_read(self):
+        iterator = self.iter()
+        avg_vowels(iterator.next())
+        generator = url_list_generator
+
         '''
         hardest_read() returns the filename of the text with the highest vowel score (use all the cpu cores on the computer for this work.
         '''
