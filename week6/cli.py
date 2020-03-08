@@ -15,7 +15,7 @@ def command(download, avg, hread):
     if(download):
         ExerciseModule.download(download[0], download[1])
     elif(avg):
-        ExerciseModule.aver
+        ExerciseModule.avg_vowels(avg)
 
 
 @manager.command()
