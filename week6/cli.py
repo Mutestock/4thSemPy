@@ -16,6 +16,8 @@ def command(download, avg, hread):
         ExerciseModule.download(download[0], download[1])
     elif(avg):
         ExerciseModule.avg_vowels(avg)
+    elif(hread):
+        ExerciseModule.hard_read()
 
 
 @manager.command()
@@ -24,3 +26,4 @@ def multi(urls):
     if(urls):
         em = ExerciseModule(None)
         em.multi_download(list(urls))
+        em.hardest_read()

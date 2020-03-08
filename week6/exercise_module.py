@@ -105,14 +105,14 @@ class ExerciseModule():
             return total/line_count
 
     def hardest_read(self):
-        iterator = self.iter()
-        avg_vowels(iterator.next())
-        generator = url_list_generator
+        file_vs_avg = {}
+        for file in self.__file_name_list:
+            file_vs_avg[file] = self.avg_vowels(file)
 
         '''
         hardest_read() returns the filename of the text with the highest vowel score (use all the cpu cores on the computer for this work.
         '''
-        raise NotImplemented
+        return sorted(file_vs_avg.values())
 
     @property
     def url_list(self):
