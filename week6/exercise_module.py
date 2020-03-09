@@ -26,17 +26,18 @@ class ExerciseModule():
             raise NotFoundException(str(error))
 
     def __name_handle(self, s):
-        s = s.replace(s.split('.')[-1], '')
-        s = s.replace('.', '')
-
-        return s.split('/')[-1]
+        s = s.split('/')[-1]
+        if('.' in s):
+            s = s.replace(s.split('.')[-1], '')
+            s = s.replace('.', '')
+        return s
 
     def __dl_append(self, url):
         try:
             r = requests.get(url)
             r.raise_for_status()
             name = self.__name_handle(url)
-            self.__file_name_list.append(name)
+            self.__file_name_list.append(name+'.txt')
             with open(name + '.txt', 'ab') as fileAppend:
                 fileAppend.flush()
                 for chunk in r.iter_content(chunk_size=1024):
@@ -112,7 +113,7 @@ class ExerciseModule():
         '''
         hardest_read() returns the filename of the text with the highest vowel score (use all the cpu cores on the computer for this work.
         '''
-        return sorted(file_vs_avg.values())
+        return [key for key, val in sorted(file_vs_avg.items(), key=lambda item: item[1], reverse=True)][0]
 
     @property
     def url_list(self):

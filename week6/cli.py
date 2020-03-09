@@ -26,4 +26,4 @@ def multi(urls):
     if(urls):
         em = ExerciseModule(None)
         em.multi_download(list(urls))
-        em.hardest_read()
+        print(em.hardest_read())
