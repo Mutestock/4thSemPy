@@ -90,20 +90,24 @@ class ExerciseModule():
 
         I am going to assume that this is referring to a text file and not a string
         '''
-        with open(text, 'r') as fileRead:
+        with open(text, 'r', encoding='utf-8') as fileRead:
             line_count = 0
             total = 0
-            for line_count, line in enumerate(fileRead.readlines()):
-                word_count = 0
-                val = 0
-                for word_count, word in enumerate(line.split(' ')):
-                    pre = len(word)
-                    cut = re.sub(pattern='[aeioyu]', repl='',
-                                 string=word, flags=re.IGNORECASE, count=0)
-                    val += pre - len(cut)
-                if(word_count != 0):
-                    total += val/word_count
-            return total/line_count
+            try:
+                for line_count, line in enumerate(fileRead.readlines()):
+                    word_count = 0
+                    val = 0
+                    for word_count, word in enumerate(line.split(' ')):
+                        pre = len(word)
+                        cut = re.sub(pattern='[aeioyu]', repl='',
+                                     string=word, flags=re.IGNORECASE, count=0)
+                        val += pre - len(cut)
+                    if(word_count != 0):
+                        total += val/word_count
+                return total/line_count
+            except(UnicodeDecodeError) as err:
+                print("Unicode Error" + str(err))
+                return 0
 
     def hardest_read(self):
         file_vs_avg = {}
