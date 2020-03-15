@@ -1,5 +1,6 @@
 import click
 from exercise_module import ExerciseModule
+from plot import bar_plot
 
 
 @click.group()
@@ -10,14 +11,14 @@ def manager():
 @manager.command()
 @click.option('--download', '-d', nargs=2)
 @click.option('--avg', '-a')
-@click.option('..hread', 'h', is_flag=True)
-def command(download, avg, hread):
+@click.option('--plot', '-p', type=click.Choice(['bar01'], case_sensitive=False))
+def command(download, avg, plot):
     if(download):
         ExerciseModule.download(download[0], download[1])
     elif(avg):
         ExerciseModule.avg_vowels(avg)
-    elif(hread):
-        ExerciseModule.hard_read()
+    elif(plot):
+        bar_plot()
 
 
 @manager.command()

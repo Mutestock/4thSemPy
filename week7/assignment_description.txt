@@ -1,0 +1,20 @@
+assignment 1 - black tears(modified)
+
+link:
+
+	https://www.merchbar.com/
+	
+question 01:
+	How many products pops up, when you search for a given title?
+	
+question 02:
+	How many tracks is there in the first product under the CD category?
+
+question 03:
+	Show a bar chart showing:
+		Percentage of shown products which are related to the given title
+		Percentage of products which are on sale
+		Percentage of products which are sold out
+		
+	Note: I will be making all of these into pie charts since they're basically boolean values.
+

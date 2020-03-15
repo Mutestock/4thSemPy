@@ -109,13 +109,19 @@ class ExerciseModule():
                 print("Unicode Error" + str(err))
                 return 0
 
+    def file_dict(self):
+        file_vs_avg = {}
+        for file in self.__file_name_list:
+            file_vs_avg[file] = self.avg_vowels(file)
+        return file_vs_avg
+
     def hardest_read(self):
         file_vs_avg = {}
         for file in self.__file_name_list:
             file_vs_avg[file] = self.avg_vowels(file)
 
         '''
-        hardest_read() returns the filename of the text with the highest vowel score (use all the cpu cores on the computer for this work.
+        8. hardest_read() returns the filename of the text with the highest vowel score (use all the cpu cores on the computer for this work.
         '''
         return [key for key, val in sorted(file_vs_avg.items(), key=lambda item: item[1], reverse=True)][0]
 
