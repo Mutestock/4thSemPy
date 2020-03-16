@@ -17,7 +17,7 @@ def selenium_sequence(query, item_count):
     search_field = driver.find_element_by_xpath(
         "//span[@class='twitter-typeahead']/input[1]"
     )
-    search_field.send_keys(query)
+    search_field.send_keys(" ".join(query))
     search_field.send_keys(Keys.ENTER)
     # search_field.submit()
 
@@ -42,14 +42,24 @@ def selenium_sequence(query, item_count):
     sleep(1)
     print("Iterating entries...")
     sleep(0.1)
+    repition_doorstopper = {"len": 0, "repetition": 0}
     while True:
         print(len(items))
-        if len(items) < item_count:
+        if len(items) < item_count and len(items) < int(total_product_count):
             page_sauce = driver.page_source
             soup = bs4.BeautifulSoup(page_sauce, "html.parser")
             driver.find_element_by_tag_name("body").send_keys(Keys.CONTROL + Keys.END)
             sleep(0.2)
             items = soup.find_all("div", {"class": "col-md-4 col-6"})
+            if repition_doorstopper["len"] == len(items):
+                repition_doorstopper["repetition"] = (
+                    repition_doorstopper["repetition"] + 1
+                )
+            print(repition_doorstopper["repetition"])
+            repition_doorstopper["len"] = len(items)
+        # if repition_doorstopper["repetition"] is 10:
+        #    print("Caught in a loop. Continuing at:" + len(items))
+        #    break
         else:
             break
     print("done")
@@ -107,7 +117,7 @@ def process_entries(query, item_count):
     for item in items:
         name = item.find("div", {"class": "MerchTile.module__title"}).text
         price = item.find("span", {"class": "MerchTile.module__price"}).text
-        sale_price = None
+        sale_price = price
 
         try:
             sale_price = item.find(
@@ -119,14 +129,17 @@ def process_entries(query, item_count):
         brand = item.find("div", {"class": "MerchTile.module__brandName"}).text
 
         stock = False
-        if item.find("div", {"class": "MerchTile.module__status"}).text is "In Stock":
+        if (
+            str(item.find("div", {"class": "MerchTile.module__status"}).text)
+            == "In Stock"
+        ):
             stock = True
 
         pseudo_objects.append(
             {
                 "name": name,
-                "price": price,
-                "sale_price": sale_price,
+                "price": float(price.replace("DKK\xa0", "")),
+                "sale_price": float(sale_price.replace("DKK\xa0", "")),
                 "brand": brand,
                 "in_stock": stock,
             }

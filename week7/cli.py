@@ -1,6 +1,6 @@
 import click
 from logic import selenium_sequence, selenium_sequence_track_list, process_entries
-from charts import pie_related, pie_sale, pie_sold_out
+from charts import pie_related, bar_sale, pie_sold_out
 
 
 @click.group()
@@ -19,7 +19,7 @@ def blacktears(chart, count, query, tlist):
     if chart and count and query:
         pseudo_switch = {
             "related": pie_related,
-            "sale": pie_sale,
+            "sale": bar_sale,
             "soldout": pie_sold_out,
         }
         pseudo_switch.get(chart)(query, int(count))
