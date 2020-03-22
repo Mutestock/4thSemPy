@@ -21,18 +21,24 @@ testing: 'nose2 -v'
 cli commands:
 
 python main.py ex --flask
+
 python main.py ex --sync
+
 python main.py ex --between date1 date2
 
 dateformat: yyyy-mm-dd
 
 endpoints(local):
+
 http://127.0.0.1:5000/rest/burglary
+
 http://127.0.0.1:5000/rest/{to}={from}
+
 example:
+
 http://127.0.0.1:5000/rest/2006-01-05=2006-03-20
 
-server-side: http://178.62.118.111/
+server-side: http://178.62.118.111/ (not online)
 
 Please be aware, that this program requires a 'sensitive.ini' file to function correctly.
 I don't feel like putting sensitive information out there tbh.
