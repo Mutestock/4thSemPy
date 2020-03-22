@@ -14,8 +14,6 @@ I've translated the assignment to english
 
 In this Hand-In I will play around with some different techniques out of interest and not necessity.
 
-Note that the DB settings are hidden away in an
-
 Instructions:
 
 testing: 'nose2 -v'
