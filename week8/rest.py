@@ -5,6 +5,7 @@ from flask import Flask
 from flask_restplus import Api, Resource
 from connector import construct_con_str
 from logic import crimes_between_dates, total_burglary
+from decorators import Decorators
 import configparser
 
 app = Flask(__name__)
@@ -19,7 +20,6 @@ ns = api.namespace("rest", description="Assignment Rest")
 @api.response(404, "Nothing here but us lemmings")
 class ResToFrom(Resource):
     def get(self, fromdate, todate):
-
         return crimes_between_dates(fromdate, todate)
 
     def post(self, fromdate, todate):
@@ -34,6 +34,7 @@ class ResBurglary(Resource):
         return total_burglary()
 
 
+@Decorators.determine_environment
 def flask_run():
     conf = configparser.ConfigParser()
     conf.read("configuration.ini")

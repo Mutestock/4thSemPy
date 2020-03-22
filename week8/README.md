@@ -20,9 +20,13 @@ Instructions:
 
 testing: 'nose2 -v'
 
-Please be aware, that this program requires a 'sensitive.ini' file to function correctly.
-I don't feel like putting sensitive information out there tbh.
-If you want to run this program, then you're going to have to create a 'sensitive.ini' file by yourself
+cli commands:
+
+python main.py ex --flask
+python main.py ex --sync
+python main.py ex --between date1 date2
+
+dateformat: yyyy-mm-dd
 
 endpoints(local):
 http://127.0.0.1:5000/rest/burglary
@@ -31,6 +35,10 @@ example:
 http://127.0.0.1:5000/rest/2006-01-05=2006-03-20
 
 server-side: http://178.62.118.111/
+
+Please be aware, that this program requires a 'sensitive.ini' file to function correctly.
+I don't feel like putting sensitive information out there tbh.
+If you want to run this program, then you're going to have to create a 'sensitive.ini' file by yourself
 
 Q: Why restplus?
 A: Because base URL documentation http://127.0.0.1:5000/ and because I was interested
