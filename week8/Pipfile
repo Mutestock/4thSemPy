@@ -12,6 +12,11 @@ selenium = "*"
 configparser = "*"
 pandas = "*"
 numpy = "*"
+pymysql = "*"
+sshtunnel = "*"
+nose2 = "*"
+sqlalchemy = "*"
+flask-restplus = "*"
 
 [requires]
 python_version = "3.7"
