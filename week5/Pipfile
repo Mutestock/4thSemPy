@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+click = "*"
+flake8 = "*"
+pandas = "*"
+urllib3 = "*"
+requests = "*"
+matplotlib = "*"
+
+[requires]
+python_version = "3.7"

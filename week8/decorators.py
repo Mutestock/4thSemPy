@@ -46,12 +46,3 @@ class Decorators:
             return func(*args, **kwargs)
 
         return wrapper
-
-    def query(func):
-        def wrapper(cnx):
-            cursor = cnx.cursor()
-            func(cursor)
-            cursor.close()
-            cnx.close()
-
-        return wrapper

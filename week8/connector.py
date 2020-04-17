@@ -33,6 +33,10 @@ def get_active_environment():
 
 
 def production_ssh_setup(active_environment, conf):
+    '''
+    Gain control of remote server through ssh
+    redundant in this assignment
+    '''
     server = SSHTunnelForwarder(
         conf[active_environment]["SSHIP"],
         ssh_username=conf[active_environment]["SSHUsername"],
