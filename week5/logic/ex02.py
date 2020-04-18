@@ -34,8 +34,8 @@ def direct(columns):
 Questions:
 
 1. find Sea transport, export, year, employee count. Bar
-2. find post *, export, 2018, total. Bar
-3. find and sort Research and development, tid *, VIRKSTRRDA *, multibar
+2. find post *, all, 2018, total. multibar
+3. find Research and development services, tid *, VIRKSTRRDA *, multibar
 4. financial services, 2018, exports, virkstrrda*, pie
 5. construction, 2014, *, total, pie
 
@@ -55,14 +55,44 @@ def sea_employee_count():
     plt.show()
 
 def all2018():
-    df = direct(['INDUD','VIRKSTRRDA','TID'])
+    df = direct(['POST','INDUD','VIRKSTRRDA','TID'])
 
     df = df[df['VIRKSTRRDA'].str.match('Total')]
-    df['ALL'] = [pd.to_numeric(df['INDUD'].str.match('Exports'))+pd.to_numeric(df['INDUD'].str.match("Imports"))]
-    df.drop(columns=['INDUD'])
+    df = df[df['TID']==2018]
+    
+    df['TID'] = pd.to_numeric(df['TID'])
+    df['INDHOLD'] = pd.to_numeric(df['INDHOLD'],errors='coerce')
+    df['EXPORT'] = df[df['INDUD'].str.match('Exports')]['INDHOLD']
+    df['IMPORT'] = df[df['INDUD'].str.match('Imports')]['INDHOLD']
+    df=df[df['INDHOLD'].notna()]
+
+    print(df.head())
+
+    df.plot.bar(x='POST', y=['EXPORT','IMPORT'])
+    plt.show()
+
+
 
 def research():
-    raise NotImplemented()
+    df = direct(['POST','INDUD','VIRKSTRRDA','TID'])
+
+    df = df[df['POST'].str.match("Research and development services")]
+    df = df[~df['VIRKSTRRDA'].str.match("Total")]
+    df = df[df['INDUD'].str.match('Exports')]
+    df['INDHOLD'] = pd.to_numeric(df['INDHOLD'])
+    print(df)
+    df['LOW'] = df[df['VIRKSTRRDA'].str.match("From 0 to 49 employees")]['INDHOLD']
+    df['MEDIUM'] = df[df['VIRKSTRRDA'].str.match("From 50 to 249 employees")]['INDHOLD']
+    df['HIGH'] = df[df['VIRKSTRRDA'].str.match("250 employees or more")]['INDHOLD']
+    df['UNKNOWN'] = df[df['VIRKSTRRDA'].str.match("Unknown")]['INDHOLD']
+    df = df.drop(columns='INDHOLD')
+    df = df.groupby(['TID', 'VIRKSTRRDA']).max()
+    df = df.reset_index()
+   # print(df)
+    #df.plot.bar(x='TID', y=['LOW','MEDIUM','HIGH','UNKNOWN'], stacked=True)
+    #plt.show()
+
+    
 
 def finance():
     raise NotImplemented()

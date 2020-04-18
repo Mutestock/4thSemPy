@@ -22,7 +22,9 @@ def exercise(one, two):
         }.get(one)()
     elif(two):
         {
-            'sea':ex02.sea_employee_count
+            'sea':ex02.sea_employee_count,
+            'all2018':ex02.all2018,
+            'research':ex02.research
         }.get(two)()
 
 
