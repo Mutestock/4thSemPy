@@ -8,13 +8,13 @@ def statsbank_format(columns):
     url = "https://api.statbank.dk/v1/data/FOLK1A/CSV?lang=en&delimiter=Semicolon"
     for columns in columns:
         url = url + "&"+columns+"=*"
-    
     return url
 
 
 def direct(columns):
     df = pd.read_csv(statsbank_format(columns), sep =';')
     return df
+
 
 def divorced():
     '''
@@ -29,7 +29,6 @@ def divorced():
     plt.show()
     
 
-    
 def never_married():
     '''
     Which of the biggest cities has the highest percentage of 'Never Married'?
@@ -48,7 +47,7 @@ def marrital_status():
     '''
     df = direct(['TID','OMR%C3%85DE', 'CIVILSTAND'])
     df = df[df['OMRÅDE'].str.match('Copenhagen')]
-
+    df = df.drop(columns=['OMRÅDE'])
     df['TID'] = df['TID'].map(lambda x: x[:4])
     
     df1 = df[df['CIVILSTAND'].str.match('Married/separated')]
@@ -57,6 +56,19 @@ def marrital_status():
     df4 = df[df['CIVILSTAND'].str.match('Divorced')]
 
     df['MARSEP'] = df1['INDHOLD']
+
+    df = df.drop(columns=['CIVILSTAND'])
+    df = df.drop(columns=['INDHOLD'])
+    df = df.dropna()
+
+    df = df.drop_duplicates(subset=['TID'])
+
+    df = df.reset_index()
+    df1 = df1.reset_index()
+    df2 = df2.reset_index()
+    df3 = df3.reset_index()
+    df4 = df4.reset_index()
+
     df['NEVERMARRIED'] = df2['INDHOLD']
     df['WIDOWED'] = df3['INDHOLD']
     df['DIVORCED'] = df4['INDHOLD']
