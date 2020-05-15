@@ -79,16 +79,26 @@ def marrital_status():
 def married_nevermarried():
     '''
     Show a bar chart of 'Married' and 'Never Married' for all ages in DK (Hint: 2 bars of different color)
-
-    Note: why bar? You need to maximize the window to watch the "correct" representation of the data.
     '''
     df = direct(['ALDER', 'CIVILSTAND'])
+    df = df.drop(columns='TID')
     df = df[~df['ALDER'].str.match('Total')]
+    df['ALDER'] = df['ALDER'].map(lambda x: x[:-6])
 
-    df['MARRIED'] = df[df['CIVILSTAND'].str.match('Married/separated')]['INDHOLD']
-    df['NEVERMARRIED'] = df[df['CIVILSTAND'].str.match('Never married')]['INDHOLD']
-   
-    df.plot(x='ALDER', y=['MARRIED','NEVERMARRIED'], kind="bar", width=0.5)
+    df1 = df[df['CIVILSTAND'].str.match('Married/separated')]
+    df2 = df[df['CIVILSTAND'].str.match('Never married')]
+
+    df['MARRIED'] = df1['INDHOLD']
+    df = df.drop(columns=['CIVILSTAND'])
+    df = df.drop(columns=['INDHOLD'])
+    df = df.dropna()
+
+    df = df.drop_duplicates(subset=['ALDER'])
+    df = df.reset_index()
+    df2 = df2.reset_index()
+    df['NEVER MARRIED'] = df2['INDHOLD']
+
+    df.plot(x='ALDER', y=['MARRIED','NEVER MARRIED'], kind="bar", width=0.5)
     plt.show()
 
 

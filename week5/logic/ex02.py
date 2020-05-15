@@ -33,7 +33,8 @@ def direct(columns):
 '''
 Questions:
 
-1. find Sea transport, export, year, employee count. Bar
+1. X = Time, Y = Employees working in Sea Transport export division. Bar
+
 2. find post *, all, 2018, total. multibar
 3. find Research and development services, tid *, VIRKSTRRDA *, multibar
 4. financial services, 2018, exports, virkstrrda*, pie
@@ -51,6 +52,8 @@ def sea_employee_count():
     df['TID'] = pd.to_numeric(df['TID'])
     df['INDHOLD'] = pd.to_numeric(df['INDHOLD'])
 
+    print(df)
+
     df.plot.bar(x='TID', y='INDHOLD')
     plt.show()
 
@@ -63,10 +66,15 @@ def all2018():
     df['TID'] = pd.to_numeric(df['TID'])
     df['INDHOLD'] = pd.to_numeric(df['INDHOLD'],errors='coerce')
     df['EXPORT'] = df[df['INDUD'].str.match('Exports')]['INDHOLD']
-    df['IMPORT'] = df[df['INDUD'].str.match('Imports')]['INDHOLD']
-    df=df[df['INDHOLD'].notna()]
+    df1 = df[df['INDUD'].str.match('Imports')]
 
-    print(df.head())
+    df = df.drop(columns='VIRKSTRRDA')
+    df = df.drop(columns='TID')
+    df = df.dropna()
+    df = df.reset_index(drop=True)
+    df1 = df1.reset_index(drop=True)
+
+    df['IMPORT'] = df1['INDHOLD']
 
     df.plot.bar(x='POST', y=['EXPORT','IMPORT'])
     plt.show()
