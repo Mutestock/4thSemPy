@@ -6,7 +6,15 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+<<<<<<< HEAD
 click = "*"
 
 [requires]
 python_version = "3.7"
+=======
+pandas = "*"
+matplotlib = "*"
+
+[requires]
+python_version = "3.8"
+>>>>>>> a67e6600673324bba9551586797b76f5922f40ad
