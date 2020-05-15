@@ -21,7 +21,7 @@ def dkstec1_format(columns):
     '''
     url = "https://api.statbank.dk/v1/data/DKSTEC1/CSV?lang=en&delimiter=Semicolon"
     for columns in columns:
-        url = url + "&"+columns+"=*"    
+        url = url + "&"+columns+"=*"
     return url
 
 
@@ -33,16 +33,28 @@ def direct(columns):
 '''
 Questions:
 
-1. X = Time, Y = Employees working in Sea Transport export division. Bar
+1. X = Time, Y = Services working in Sea Transport export division. Bar
+2. X = Post, Y = services working in imports and exports in year 2018. Multibar
+3. X = Time, Y = Research and development services exports division split up in VIRKSTRRDA:
+    250 employees or more (HIGH)
+    From 50 to 249 employees (MID)
+    From 0 to 49 employees (LOW)
+    Unknown (UNKNOWN)
+ multibar
+4. Pie diagram of financial services, 2018, exports, VIRKSTRRDA:
+    250 employees or more (HIGH)
+    From 50 to 249 employees (MID)
+    From 0 to 49 employees (LOW)
+    Unknown (UNKNOWN)
 
-2. find post *, all, 2018, total. multibar
-3. find Research and development services, tid *, VIRKSTRRDA *, multibar
-4. financial services, 2018, exports, virkstrrda*, pie
 5. construction, 2014, *, total, pie
 
 '''
 
 def sea_employee_count():
+    """
+     X = Time, Y = Employees working in Sea Transport export division. Bar
+    """    
     df = direct(['POST','INDUD','VIRKSTRRDA','TID'])
     
     df = df[df['POST'].str.match('Sea transport')]
@@ -58,6 +70,8 @@ def sea_employee_count():
     plt.show()
 
 def all2018():
+    """X = Post, Y = Employees working in imports and exports in year 2018. Multibar
+    """    
     df = direct(['POST','INDUD','VIRKSTRRDA','TID'])
 
     df = df[df['VIRKSTRRDA'].str.match('Total')]
@@ -82,28 +96,63 @@ def all2018():
 
 
 def research():
+    """
+    X = Time, Y = Research and development services exports division split up in:
+        250 employees or more (HIGH)
+        From 50 to 249 employees (MID)
+        From 0 to 49 employees (LOW)
+        Unknown (UNKNOWN)
+    multibar
+    """    
     df = direct(['POST','INDUD','VIRKSTRRDA','TID'])
 
     df = df[df['POST'].str.match("Research and development services")]
     df = df[~df['VIRKSTRRDA'].str.match("Total")]
     df = df[df['INDUD'].str.match('Exports')]
     df['INDHOLD'] = pd.to_numeric(df['INDHOLD'])
-    print(df)
-    df['LOW'] = df[df['VIRKSTRRDA'].str.match("From 0 to 49 employees")]['INDHOLD']
-    df['MEDIUM'] = df[df['VIRKSTRRDA'].str.match("From 50 to 249 employees")]['INDHOLD']
-    df['HIGH'] = df[df['VIRKSTRRDA'].str.match("250 employees or more")]['INDHOLD']
-    df['UNKNOWN'] = df[df['VIRKSTRRDA'].str.match("Unknown")]['INDHOLD']
-    df = df.drop(columns='INDHOLD')
-    df = df.groupby(['TID', 'VIRKSTRRDA']).max()
-    df = df.reset_index()
-   # print(df)
-    #df.plot.bar(x='TID', y=['LOW','MEDIUM','HIGH','UNKNOWN'], stacked=True)
-    #plt.show()
-
     
+    df['LOW'] = df[df['VIRKSTRRDA'].str.match("From 0 to 49 employees")]['INDHOLD']
+
+    df1 = df[df['VIRKSTRRDA'].str.match("From 50 to 249 employees")]
+    df2 = df[df['VIRKSTRRDA'].str.match("250 employees or more")]
+    df3 = df[df['VIRKSTRRDA'].str.match("Unknown")]
+
+    df = df.drop(columns=['INDHOLD','POST', 'VIRKSTRRDA'])
+    df = df.dropna()
+
+    df = df.reset_index()
+    df1 = df1.reset_index()
+    df2 = df2.reset_index()
+    df3 = df3.reset_index()
+
+    df['MID'] = df1['INDHOLD']
+    df['HIGH'] = df2['INDHOLD']
+    df['UNKNOWN'] = df3['INDHOLD']
+    
+    df.plot.bar(x='TID', y=['LOW','MID','HIGH','UNKNOWN'], stacked=True)
+    plt.show()
 
 def finance():
-    raise NotImplemented()
+    """
+    Pie diagram of financial services, 2018, exports, VIRKSTRRDA:
+        250 employees or more (HIGH)
+        From 50 to 249 employees (MID)
+        From 0 to 49 employees (LOW)
+        Unknown (UNKNOWN)
+    """    
+    df = direct(['POST','INDUD','VIRKSTRRDA','TID'])
+    df = df[df['POST'].str.match('FINANCIAL SERVICES')]
+    df = df[df['TID'] == 2014]
+    df = df[df['INDUD'].str.match('Exports')]
+
+    df = df.drop(columns=['POST','TID','INDUD'])
+    df = df[~df['VIRKSTRRDA'].str.match("Total")]
+    df['INDHOLD'] = pd.to_numeric(df['INDHOLD'])
+    df = df.reset_index()
+    
+    df.plot.pie(y='INDHOLD', figsize=(5,5), labels=df['VIRKSTRRDA'])
+    plt.show()
+
 
 def construction():
     raise NotImplemented()

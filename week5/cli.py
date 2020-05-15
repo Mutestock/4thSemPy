@@ -11,7 +11,7 @@ def manager():
 
 @manager.command()
 @click.option('--one', '-o', type=click.Choice(['divorced', 'nevermarried', 'marrital', 'marnev']))
-@click.option('--two', '-t', type=click.Choice(['sea', 'all2018','research','services', 'construction']))
+@click.option('--two', '-t', type=click.Choice(['sea', 'all2018','research','finance', 'construction']))
 def exercise(one, two):
     if(one):
         {
@@ -24,7 +24,8 @@ def exercise(one, two):
         {
             'sea':ex02.sea_employee_count,
             'all2018':ex02.all2018,
-            'research':ex02.research
+            'research':ex02.research,
+            'finance':ex02.finance
         }.get(two)()
 
 
