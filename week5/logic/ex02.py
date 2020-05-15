@@ -47,7 +47,7 @@ Questions:
     From 0 to 49 employees (LOW)
     Unknown (UNKNOWN)
 
-5. construction, 2014, *, total, pie
+5. Pie diagram of imports/exports of Total Construction Services, 2014
 
 '''
 
@@ -155,5 +155,16 @@ def finance():
 
 
 def construction():
-    raise NotImplemented()
+    """
+    5. Pie diagram of imports/exports of Total Construction Services, 2014
+    """    
+    df = direct(['POST','INDUD','VIRKSTRRDA','TID'])
 
+    df = df[df['POST'].str.match('CONSTRUCTION')]
+    df = df[df['TID'] == 2014]
+    df = df[df['VIRKSTRRDA'].str.match('Total')]
+
+    df['INDHOLD'] = pd.to_numeric(df['INDHOLD'])
+
+    df.plot.pie(y='INDHOLD', figsize=(5,5), labels=df['INDUD'])
+    plt.show()

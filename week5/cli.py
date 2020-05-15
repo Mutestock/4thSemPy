@@ -25,7 +25,8 @@ def exercise(one, two):
             'sea':ex02.sea_employee_count,
             'all2018':ex02.all2018,
             'research':ex02.research,
-            'finance':ex02.finance
+            'finance':ex02.finance,
+            'construction':ex02.construction
         }.get(two)()
 
 
