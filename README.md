@@ -17,6 +17,7 @@ pip install pipenv
 go to project root
 
 pipenv shell
+
 pipenv sync
 
 Replace the python_version in the pipfile if necessary.
