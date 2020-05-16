@@ -39,3 +39,8 @@ def ex02(index):
                 new_values[spl[0]] = spl[1].replace(' ','')
     pprint(new_values)
     return new_values
+
+
+"""
+3. Store some of the data in a database with PyMySQL and create a flask server with a GET endpoint to show all the data stored in the DB. (Optionally deploy flask server on your droplet)
+"""

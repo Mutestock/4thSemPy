@@ -5,6 +5,10 @@ if(__name__ == '__main__'):
 
 
 '''
+Chosen assignment is Happy County https://docs.google.com/spreadsheets/d/10HYM2KRqslBTQjkcz8B0ooz4TnnXd4n5xxFsSl9saZQ/edit#gid=579625806
+
+Assignment definition is split into the functions in logic.py.
+
 Note that I use a pipenv virtual environment for this solution. To use the same setup do the following:
 
 pip install pipenv
