@@ -1,6 +1,5 @@
 import click
-from logic import reg_log_file, rip_info
-
+import logic
 
 @click.group()
 def manager():
@@ -8,11 +7,6 @@ def manager():
 
 
 @manager.command()
-@click.option("--regfile", "-r")
-@click.option("--htmlrip", "-h")
-def ex(regfile, htmlrip):
-    if regfile:
-        print(reg_log_file(regfile))
-    if htmlrip:
-        rip_info(htmlrip)
-
+#@click.option('--ex', '-e', type=click.Choice([]))
+def exercise():
+    print(logic.unique_labels())
