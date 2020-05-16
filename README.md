@@ -4,9 +4,9 @@ repo for python assignments
 The main.py file in the folders will often hold vital information for the assignment.
 Herein CLI commands to demonstrate the solutions to the assignments.
 
-##IMPORTANT:
+## IMPORTANT:
 
-###1:
+### 1:
 
 Note that most of these assignments uses virtual environments
 
@@ -21,7 +21,7 @@ pipenv sync
 
 Replace the python_version in the pipfile if necessary.
 
-###2:
+### 2:
 
 Some of these assignments focuses on Rest services and connection to a database. 
 These assignments require a 'sensitive.ini' file which contains connection information to the database.
