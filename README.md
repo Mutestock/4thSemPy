@@ -33,6 +33,7 @@ Create sensitive.ini file in project root.
 
 Paste this in and fill in the information. 
 Filling in the PRODUCTION section is only necessary if you're going to deploy.
+Delete the empty new lines. I don't like the .md format very much..
 
 [PRODUCTION]
 
