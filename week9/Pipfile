@@ -6,6 +6,16 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+click = "*"
+selenium = "*"
+flask-restplus = "*"
+beautifulsoup4 = "*"
+requests = "*"
+nose2 = "*"
+configparser = "*"
+pymysql = "*"
+sqlalchemy = "*"
+jsonify = "*"
 
 [requires]
 python_version = "3.7"

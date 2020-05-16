@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\Henning\\.virtualenvs\\week9-oULXeGAS\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\Hoodo\\.virtualenvs\\week9-2Vb9-GjX\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }
