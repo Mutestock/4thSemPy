@@ -35,19 +35,31 @@ Paste this in and fill in the information.
 Filling in the PRODUCTION section is only necessary if you're going to deploy.
 
 [PRODUCTION]
+
 ServerUser=
+
 Distribution=
+
 SQLUsername=
+
 SQLPassword=
+
 SQLHost=
+
 SQLDB=
+
 SQLPort=
 
 [LOCAL]
+
 SQLUsername=
+
 SQLPassword=
+
 SQLHost=
+
 SQLDB=
+
 SQLPort=
 
 
