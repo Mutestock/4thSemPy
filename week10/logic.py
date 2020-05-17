@@ -9,7 +9,6 @@ def load_csv():
     1. load 'iris_data.csv into a dataframe'
     '''
     df = pd.read_csv('resources/iris_data.csv')
-    return df
 
 def unique_labels():
     '''
@@ -52,14 +51,14 @@ def cluster():
     labels = analyzer.labels_
     centers = analyzer.cluster_centers_
 
-    return bandwidth, labels, centers
+    return bandwidth, labels, centers, df
 
 def cluster_print():
     """
     5. print labels, cluster centers and number of clusters (as returned from the MeanShift function)
     """    
 
-    bandwidth, labels, centers = cluster()
+    bandwidth, labels, centers, _ = cluster()
     unique = np.unique(labels)
 
     print('\n\n#########\n')
@@ -71,4 +70,26 @@ def cluster_print():
     print('########\n')
 
 def scatter02():
+    """
+    6. Create a new scatter plot where each flower is colored according to cluster label
+    """    
+    bandwidth, labels, centers, df = cluster()
+    unique = np.unique(labels)
+    arr = np.array(df)
+    print(arr)
+    print(df)
+    #plt.scatter()
+
+    #fig, axes = plt.subplots(nrows=2)
+    print(centers)
+    #df = df.sort_values(by=['Sepal width'])
+    #df = df.sort_values(by=['Sepal length'])
+    df.plot.scatter(x='Sepal length', y='Sepal width', c=labels, colormap='viridis')
+    #plt.scatter(arr[:,0], arr[:,1], c=labels)
+    plt.scatter(centers[:,0], centers[:,1], color='r', marker='*', s=150)
+    #df.plot.scatter(ax=axes[1],x='Sepal length', y='Sepal width', c=labels, colormap='viridis')
     
+    #plt.scatter(x=centers[:,0], y=centers[:,1], marker='.', color=)
+
+    plt.show()
+

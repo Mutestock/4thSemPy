@@ -14,5 +14,7 @@ def exercise(ex):
             '1':logic.load_csv,
             '2':logic.unique_labels,
             '3':logic.scatter01,
-            '4':logic.cluster_print
+            '4':logic.cluster,
+            '5':logic.cluster_print,
+            '6':logic.scatter02
         }.get(ex)()
