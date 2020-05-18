@@ -7,7 +7,7 @@ def manager():
 
 
 @manager.command()
-@click.option('--ex', '-e', type=click.Choice(['1','2','3','4','5','6','7','8']))
+@click.option('--ex', '-e', type=click.Choice(['1','2','3','4','5','6']))
 def exercise(ex):
     if(ex):
         {
